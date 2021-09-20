@@ -9,35 +9,36 @@ namespace Sphinx
     public static void Main()
     {
       SphinxData mySphinx = new SphinxData();
-
-      Console.WriteLine("You have entered the lair of the sphinx. Answer its riddles correctly to survive.");
-
-      Program.displayQuestion(mySphinx);
-    }
-
-    public static void displayQuestion (SphinxData mySphinx)
-    {
-      Console.WriteLine(mySphinx.getNextQuestion());
-      string guess = Console.ReadLine();
-
-      if (mySphinx.wasCorrect(guess))
+      void displayQuestion ()
       {
-        Console.WriteLine("Correct!");
-        //test if it's the last one - "base case"
-        if (mySphinx.getNextQuestion() == "you win")
+        Console.WriteLine(mySphinx.getNextQuestion());
+        string guess = Console.ReadLine();
+
+        if (mySphinx.wasCorrect(guess))
         {
-          Console.WriteLine("You win. Take the sphinx's treasure!");
+          Console.WriteLine("Correct!");
+          //test if it's the last one - "base case"
+          if (mySphinx.getNextQuestion() == "you win")
+          {
+            Console.WriteLine("You win. Take the sphinx's treasure!");
+          }
+          else
+          {
+            Console.WriteLine("You must answer another riddle:");
+            displayQuestion();
+          }
         }
         else
         {
-          Console.WriteLine("You must answer another riddle:");
-          Program.displayQuestion(mySphinx);
+          Console.WriteLine("Your answer is incorrect. The sphinx will feast upon your bones.");
         }
       }
-      else
-      {
-        Console.WriteLine("Your answer is incorrect. The sphinx will feast upon your bones.");
-      }
+
+      Console.WriteLine("You have entered the lair of the sphinx. Answer its riddles correctly to survive.");
+
+      displayQuestion();
     }
+
+    
   }
 }
