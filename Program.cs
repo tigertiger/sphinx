@@ -9,6 +9,7 @@ namespace Sphinx
     public static void Main()
     {
       SphinxData mySphinx = new SphinxData();
+      
       void displayQuestion ()
       {
         Console.WriteLine(mySphinx.getNextQuestion());
