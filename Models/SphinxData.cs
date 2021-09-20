@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using Sphinx.Models;
 
-// /Users/nwdocadmin/Desktop/Epicodus/sphinx/Program.cs(11,7): error CS0118: 'Sphinx' is a namespace but is used like a type [/Users/nwdocadmin/Desktop/Epicodus/sphinx/Sphinx.csproj]
-
-// /Users/nwdocadmin/Desktop/Epicodus/sphinx/Program.cs(11,29): error CS0118: 'Sphinx' is a namespace but is used like a type [/Users/nwdocadmin/Desktop/Epicodus/sphinx/Sphinx.csproj]
 
 namespace Sphinx.Models
 {
@@ -12,6 +9,7 @@ namespace Sphinx.Models
   {
     private List<Riddle> _riddles;
     private int _riddleIndex;
+    // public int RiddleIndex { get; }
     public SphinxData()
     {
       Riddle footsteps = new Riddle("The more you take, the more you leave behind. What am I?", "footsteps");
@@ -24,7 +22,14 @@ namespace Sphinx.Models
 
     public string getNextQuestion()
     {
-      return _riddles[_riddleIndex].Question;
+      if (_riddleIndex == _riddles.Count)
+      {
+        return "you win";
+      }
+      else
+      {
+        return _riddles[_riddleIndex].Question;
+      }
     }
 
     public bool wasCorrect(string guess)
