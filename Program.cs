@@ -4,13 +4,13 @@ using Sphinx.Models;
 
 namespace Sphinx
 {
-class Program
-{
-  public static bool askNextRiddle(int counter)
+  class Program
+  {
+    public static bool askNextRiddle(int counter, List<Riddle> riddles)
     {
-      Console.WriteLine(Program.riddles[counter].GetQuestion());
+      Console.WriteLine(riddles[counter].Question);
       string guess = Console.ReadLine();
-      if (guess.ToLower() == Program.riddles[counter].GetAnswer())
+      if (guess.ToLower() == riddles[counter].Answer)
       {
         Console.WriteLine("Correct!");
         return true;
@@ -23,71 +23,41 @@ class Program
     }
 
 
-  public static List<Riddle> riddles = new List<Riddle>() {}; 
-  public static void Main()
-  {
-    
-    /*
-    build a collection (list) of riddles
-
-    display welcome message
-    display the riddle - method
-    collect input
-    call the testing method
-    display correct/false message
-    */
-    Riddle footsteps = new Riddle("The more you take, the more you leave behind. What am I?", "footsteps");
-    Riddle penny = new Riddle("What has a head, a tail, is brown, and has no legs?", "penny");
-
-    Program.riddles.Add(footsteps);
-    Program.riddles.Add(penny);
-
-    Console.WriteLine($"You have entered the lair of the sphinx. Answer its riddles correctly to survive.");
-
-    for (int riddleIndex = 0; riddleIndex < Program.riddles.Count; riddleIndex++)
+    public static void Main()
     {
-      bool wasCorrect = Program.askNextRiddle(riddleIndex);
-      if (wasCorrect)
+      List<Riddle> riddles = new List<Riddle>() {};
+      Riddle footsteps = new Riddle("The more you take, the more you leave behind. What am I?", "footsteps");
+      Riddle penny = new Riddle("What has a head, a tail, is brown, and has no legs?", "penny");
+      Riddle david = new Riddle("David's father has three sons: Snap, Crackle, and _____?", "david");
+      Riddle piano = new Riddle("What has many keys, but can't even open a single door?", "piano");
+
+      riddles.Add(footsteps);
+      riddles.Add(penny);
+      riddles.Add(david);
+      riddles.Add(piano);
+
+      Console.WriteLine($"You have entered the lair of the sphinx. Answer its riddles correctly to survive.");
+
+      for (int riddleIndex = 0; riddleIndex < riddles.Count; riddleIndex++)
       {
-        if (riddleIndex == Program.riddles.Count - 1)
+        bool wasCorrect = Program.askNextRiddle(riddleIndex, riddles);
+        if (wasCorrect)
         {
-          Console.WriteLine("You win. Take the sphinx's treasure!");
+          if (riddleIndex == riddles.Count - 1)
+          {
+            Console.WriteLine("You win. Take the sphinx's treasure!");
+          }
+          else
+          {
+            Console.WriteLine($"You must answer another riddle:");
+          }
         }
         else
         {
-          Console.WriteLine($"You must answer another riddle:");
+          break;
         }
       }
-      else
-      {
-        break;
-      }
-      // Console.WriteLine($"You win, ");
-      
+
     }
-    
-    // 
-    // Console.WriteLine(riddles[0].GetQuestion());
-    // string guess = Console.ReadLine();
-    // if (guess.ToLower() == riddles[0].GetAnswer())
-    // {
-    //   Console.WriteLine("Correct. " + riddles[1].GetQuestion());
-    //   guess = Console.ReadLine();
-    //   if (guess.ToLower() == riddles[1].GetAnswer())
-    //   {
-    //     Console.WriteLine("You win. Take the sphinx's treasure!");
-    //   }
-    //   else
-    //   {
-    //     Console.WriteLine("Your answer is incorrect. The sphinx will feast upon your bones.");
-    //   }
-    // }
-    // else
-    // {
-    //   Console.WriteLine("Your answer is incorrect. The sphinx will feast upon your bones.");
-    // }
-    
-    
   }
-}
 }
